@@ -39,12 +39,6 @@ jobs:
         id: contents
         run: |
           python 1.py
-          contents=$(cat sample.json)
-          echo"::set-output name=data::$contents"
-
-      - name: create-json
-        id: create-json
-        uses: jsdaniell/create-json@v1.2.1
+      - uses: actions/upload-artifact@v3
         with:
-          name: "new-json-file.json"
-          json: ${{ steps.contents.outputs.data}}
+          name: my-artifact
