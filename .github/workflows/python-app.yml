@@ -41,7 +41,7 @@ jobs:
         id: test
         run: |
           python 1.py
-          contents:$( cat sample.json)
+          contents:$( cat sample.json )
           echo"::set-output name=data::$contents
   job2:
     runs-on: ubuntu-latest
