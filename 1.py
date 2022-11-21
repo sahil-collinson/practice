@@ -1,6 +1,6 @@
-print("hello")
 import json
 import requests
+print("hello")
 
 
 api_url = "http://api.open-notify.org/astros.json"
