@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.test.contents.data}}
+      output1: ${{ steps.contents.outputs.data}}
  
     steps:
       - uses: actions/checkout@v3
@@ -38,7 +38,7 @@ jobs:
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
-        id: test
+        id: contents
         run: |
           python 1.py
           contents=$( cat sample.json )
