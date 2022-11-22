@@ -39,7 +39,7 @@ jobs:
         id: contents
         run: |
           python 1.py
-      - uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: sample.json
+#       - uses: actions/upload-artifact@v3
+#         with:
+#           name: my-artifact
+#           path: sample.json
