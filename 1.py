@@ -1,12 +1,3 @@
-import json
-import requests
-print("hello")
-
-
-api_url = "http://api.open-notify.org/astros.json"
-response = requests.get(api_url)
-v = response.json()
-print(v)
-json_object = json.dumps(v, indent=4)
-with open("sample.json", "w") as outfile:
-    outfile.write(json_object)
+f = open("q.txt", "r") 
+print(f.read())
+   
