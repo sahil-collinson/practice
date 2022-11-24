@@ -49,8 +49,15 @@ jobs:
         id: contents3
         run: |
           python 3.py
-
-      - uses: actions/upload-artifact@v3
+      - name: Rollback Release
+        if: failure()
+        uses: author/action-rollback@stable
         with:
-          name: my-artifact
-          path: q.txt
+          # Using a known release ID
+          release_id: ${{ steps.create_release.id }}
+          # Using a tag name
+          tag: 'v1.0.1'
+          #  If the release does not exist but the tag does, setting this to true will remove the tag.
+          delete_orphan_tag: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
