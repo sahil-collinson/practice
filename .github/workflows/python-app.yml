@@ -53,8 +53,7 @@ jobs:
         if: failure()
         uses: author/action-rollback@1.0.0
         with:
-          release_id: ${{ steps.contents3.id }}
            # Using a tag name
-          tag: 'v1.0.1'
+          tag: ${{ env.release_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
