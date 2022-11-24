@@ -53,10 +53,8 @@ jobs:
         if: failure()
         uses: author/action-rollback@1.0.0
         with:
-          # Using a known release ID
           release_id: ${{ steps.contents3.id }}
-          # Using a tag name
-          #  If the release does not exist but the tag does, setting this to true will remove the tag.
-          #delete_orphan_tag: true
+           # Using a tag name
+          tag: 'v1.0.1'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
