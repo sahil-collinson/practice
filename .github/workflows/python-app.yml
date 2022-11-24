@@ -45,10 +45,10 @@ jobs:
         with:
           name: my-artifact
           path: q.txt
-#       - name: Test with py3
-#         id: contents3
-#         run: |
-#           python 3.py
+      - name: Test with py3
+        id: contents3
+        run: |
+          python 3.py
       - name: Rollback Release
         if: failure()
         uses: author/action-rollback@1.0.0
