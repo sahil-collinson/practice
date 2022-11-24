@@ -54,7 +54,7 @@ jobs:
         uses: author/action-rollback@1.0.0
         with:
           # Using a known release ID
-          id: ${{ steps.contents3.id }}
+          release_id: ${{ steps.contents3.id }}
           # Using a tag name
           #  If the release does not exist but the tag does, setting this to true will remove the tag.
           #delete_orphan_tag: true
