@@ -37,14 +37,14 @@ jobs:
         id: contents1
         run: |
           python 1.py
-      - uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: q.txt
       - name: Test with py2
         id: contents2
         run: |
           python 2.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: q.txt
       - name: Test with py3
         id: contents3
         run: |
