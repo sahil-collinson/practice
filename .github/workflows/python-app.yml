@@ -51,7 +51,7 @@ jobs:
           python 3.py
       - name: Rollback Release
         if: failure()
-        uses: author/action-rollback@stable
+        uses: author/action-rollback@1.0.0
         with:
           # Using a known release ID
           release_id: ${{ steps.create_release.id }}
