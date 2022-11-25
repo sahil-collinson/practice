@@ -50,7 +50,7 @@ jobs:
           python 3.py
       - name: Rollback Release
         if: failure()
-        uses: author/action-rollback@1.0.0
+        uses: author/action-rollback@stable
         with:
           release_id: ${{ steps.contents3.id }}
            # Using a tag name
