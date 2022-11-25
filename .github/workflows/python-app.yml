@@ -6,7 +6,11 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
-
+permissions:
+  pull-requests: write
+  issues: write 
+  id-token: write
+  contents: read
 
 jobs:
   
@@ -57,5 +61,5 @@ jobs:
            # Using a tag name
           tag: v0.1.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
 
