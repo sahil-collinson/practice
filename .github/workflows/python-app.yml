@@ -49,10 +49,10 @@ jobs:
         run: |
           python 3.py
       - name: Rollback Release
-        if: failure() && steps.contents2.outputs.id != ''
+        if: failure() && steps.contents3.outputs.id != ''
         uses: author/action-rollback@stable
         with:
-          release_id: ${{ steps.contents2.id }}
+          release_id: ${{ steps.contents3.id }}
            # Using a tag name
           tag: v0.1.0
         env:
