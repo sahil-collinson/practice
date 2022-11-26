@@ -52,7 +52,7 @@ jobs:
         if: failure()
         uses: author/action-rollback@stable
         with:
-          release_id: ${{ steps.contents3.id }}
+          release_id: ${{ steps.contents2.id }}
            # Using a tag name
           tag: v0.1.0
         env:
