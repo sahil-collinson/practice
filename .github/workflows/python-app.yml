@@ -49,7 +49,7 @@ jobs:
         run: |
           python 3.py
       - name: Rollback Release
-        if: failure() && steps.contents3.outputs.id != failure()
+        if: failure() && steps.contents3.outputs.id = failure()
         uses: author/action-rollback@stable
         with:
           release_id: ${{ steps.contents3.id }}
