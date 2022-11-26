@@ -1,48 +1,66 @@
-name: Publish
+name: Python application
 
 on:
   push:
-    branches:
-      - master
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
-  publish:
+  
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.contents.outputs.data}}
+      
+ 
     steps:
       - name: Tag
         id: autotagger
         uses: butlerlogic/action-autotag@stable
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      
-      - name: Release
-        id: create_release
-        if: steps.autotagger.outputs.tagname !=''
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
         with:
-          tag_name: ${{ steps.autotagger.outputs.tagname }}
-          release_name: Version ${{ steps.autotagger.outputs.version }}
-          body: ${{ steps.autotagger.outputs.tagmessag }}
-          draft: false
-          prerelease: true
-
-      - name: Publish
-        id: publish_npm
-        if: steps.autotagger.outputs.tagname != ''
-        uses: author/action-publish@stable
-        env:
-          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
-
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          echo installing packages
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+      # - name: Lint with flake8
+      #   run: |
+      #     # stop the build if there are Python syntax errors or undefined names
+      #     flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      #     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+      #     flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with py1
+        id: contents1
+        run: |
+          python 1.py
+      - name: Test with py2
+        if: steps.autotagger.outputs.tagname !=''
+        id: contents2
+        run: |
+          python 2.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: q.txt
+      - name: Test with py3
+        if: steps.autotagger.outputs.tagname !=''
+        id: contents3
+        run: |
+          python 3.py
       - name: Rollback Release
-        if: failure() && steps.create_release.outputs.id != ''
+        if: failure() && steps.contents3.outputs.id != ''
         uses: author/action-rollback@stable
         with:
-          # Using a known release ID
-          id: ${{ steps.create_release.id }}
-          # Using a tag name
-          tag: ${{ steps.autotagger.outputs.tagname }}
+          release_id: ${{ steps.contents3.id }}
+           # Using a tag name
+          tag:  ${{ steps.autotagger.outputs.tagname }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
