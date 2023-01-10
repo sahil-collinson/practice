@@ -15,7 +15,7 @@ jobs:
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::017312765150:role/gh-actions-oidc-trust-role
+          role-to-assume: 
           aws-region: ap-southeast-2
         
       - name: Login to Amazon ECR
