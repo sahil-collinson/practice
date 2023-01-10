@@ -1,15 +1,28 @@
-name: Docker Image CI
+name: "Docker_Nifi"
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch :
-
 jobs:
-
-  build:
-
+  terraform-scan:
+    name: "Build_nifi"
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials from AWS account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::017312765150:role/gh-actions-oidc-trust-role
+          aws-region: eu-west-1
+        
+      - name: Login to Amazon ECR
+      - id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        
+        
+      - name : Build_Image 
+      - id : Build_nifi_Image
+        run : docker build . --file Dockerfile -tag apche_nifi_1.0
