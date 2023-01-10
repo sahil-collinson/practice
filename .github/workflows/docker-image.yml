@@ -15,7 +15,7 @@ jobs:
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume:
+          role-to-assume: arn:aws:iam::017312765150:role/gh-actions-oidc-trust-role
           aws-region: ap-southeast-2
         
       - name: Login to Amazon ECR
@@ -23,6 +23,6 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
         
         
-      - name : Build_Image 
-      - id : Build_nifi_Image
-        run : docker build . --file Dockerfile -tag apche_nifi_1.0
+#       - name : Build_Image 
+#       - id : Build_nifi_Image
+#         run : docker build . --file Dockerfile -tag apche_nifi_1.0
